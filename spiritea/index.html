@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <script src="./aframe/dist/aframe-v1.1.0.min.js"></script>
+  <!-- <script src="./AR-js/aframe/build/aframe-ar.js"></script> -->
+  <body style="margin : 0px; overflow: hidden;">
+    <!-- Component registration -->
+    <script>
+        AFRAME.registerComponent('alpha-test', {
+          dependencies: ['material'],
+          init: function () {
+            this.el.getObject3D('mesh').material.alphaTest = 0.5;
+          }
+        });
+    </script>
+    <a-scene >
+        <a-assets>
+            <!-- models -->
+            <a-asset-item id="m-01" src="./_assets/models/04-1.glb"></a-asset-item>
+            <a-asset-item id="m-02" src="./_assets/models/04-2.glb"></a-asset-item>
+            <a-asset-item id="m-03" src="./_assets/models/04-3.glb"></a-asset-item>
+            <a-asset-item id="m-04" src="./_assets/models/04-4.glb"></a-asset-item>
+            <a-asset-item id="m-05" src="./_assets/models/04-5.glb"></a-asset-item>
+            <a-asset-item id="m-06" src="./_assets/models/04-6.glb"></a-asset-item>
+
+            <!-- images -->
+            <img id="i-01" src="./_assets/images/01.png">
+            <img id="i-02" src="./_assets/images/02.png">
+            <img id="i-03" src="./_assets/images/03.png">
+            <img id="i-04" src="./_assets/images/04.png">
+            <img id="i-05" src="./_assets/images/05.png">
+            <img id="i-06" src="./_assets/images/06.png">
+            <img id="i-07" src="./_assets/images/07.png">
+            <img id="i-08" src="./_assets/images/08.png">
+            <img id="i-09" src="./_assets/images/09.png">
+            <img id="i-10" src="./_assets/images/10.png">
+
+            <!-- mixins  -->
+
+            <!-- Image material -->
+            <a-mixin id="img-material" material="shader: flat; transparent: true; opacity: 0.35;"></a-mixin>
+
+            <!-- Image animation -->
+            <a-mixin id="img-animation" scale="3 3 3" animation="property: object3D.rotation.z; from: -60 to: 60; dir: alternate; dur: 5000; easing: linear; loop: true;"></a-mixin>
+            <a-mixin id="img01" rotation="0 0 0" geometry="primitive: plane; width: 1; height: 1" material="src: #i-01;">
+            </a-mixin>
+            <a-mixin id="img02" rotation="0 0 0" geometry="primitive: plane; width: 1; height: 1" material="src: #i-02;">
+            </a-mixin>
+            <a-mixin id="img03" rotation="0 0 0" geometry="primitive: plane; width: 1; height: 1" material="src: #i-03;">
+            </a-mixin>
+            <a-mixin id="img04" rotation="0 0 0" geometry="primitive: plane; width: 1; height: 1" material="src: #i-04;">
+            </a-mixin>
+            <a-mixin id="img05" rotation="0 0 0" geometry="primitive: plane; width: 1; height: 1" material="src: #i-05;">
+            </a-mixin>
+            <a-mixin id="img06" rotation="0 0 0" geometry="primitive: plane; width: 1; height: 1" material="src: #i-06;">
+            </a-mixin>
+            <a-mixin id="img07" rotation="0 0 0" geometry="primitive: plane; width: 1; height: 1" material="src: #i-07;">
+            </a-mixin>
+            <a-mixin id="img08" rotation="0 0 0" geometry="primitive: plane; width: 1; height: 1" material="src: #i-08;">
+            </a-mixin>
+            <a-mixin id="img09" rotation="0 0 0" geometry="primitive: plane; width: 1; height: 1" material="src: #i-09;">
+            </a-mixin>
+            <a-mixin id="img10" rotation="0 0 0" geometry="primitive: plane; width: 1; height: 1" material="src: #i-10;">
+            </a-mixin>
+            
+            <a-mixin id="ground">
+                <a-circle color="#566573" radius="1.6" rotation="-90 0 0" shadow="receive: true"></a-circle>
+            </a-mixin>
+        </a-assets>
+        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      
+      <a-entity id="image-carousel"
+        animation="property: object3D.rotation.y; to: 360; dur: 30000; easing: linear; loop: true;"
+        animation__2="property: object3D.position.y; from: -1.0; to: 1.5; dur: 5000; easeInOut: easeInOutSine; dir: alternate; loop: true;">
+        <a-entity rotation="0 0 0">
+            <a-entity  mixin="img01 img-material img-animation" position="0 0 -10"> 
+            </a-entity>
+        </a-entity>
+        <a-entity rotation="0 36 0">
+            <a-entity  mixin="img02 img-material img-animation" position="0 0 -10"> 
+            </a-entity>
+        </a-entity>
+        <a-entity rotation="0 72 0">
+            <a-entity  mixin="img03 img-material img-animation" position="0 0 -10"> 
+            </a-entity>
+        </a-entity>
+        <a-entity rotation="0 108 0">
+            <a-entity  mixin="img04 img-material img-animation" position="0 0 -10"> 
+            </a-entity>
+        </a-entity>
+        <a-entity rotation="0 144 0">
+            <a-entity  mixin="img05 img-material img-animation" position="0 0 -10"> 
+            </a-entity>
+        </a-entity>
+        <a-entity rotation="0 180 0">
+            <a-entity  mixin="img06 img-material img-animation" position="0 0 -10"> 
+            </a-entity>
+        </a-entity>
+        <a-entity rotation="0 216 0">
+            <a-entity  mixin="img07 img-material img-animation" position="0 0 -10"> 
+            </a-entity>
+        </a-entity>
+        <a-entity rotation="0 252 0">
+            <a-entity  mixin="img08 img-material img-animation" position="0 0 -10"> 
+            </a-entity>
+        </a-entity>
+        <a-entity rotation="0 288 0">
+            <a-entity  mixin="img09 img-material img-animation" position="0 0 -10"> 
+            </a-entity>
+        </a-entity>
+        <a-entity rotation="0 324 0">
+            <a-entity  mixin="img10 img-material img-animation" position="0 0 -10"> 
+            </a-entity>
+        </a-entity>
+      </a-entity>
+
+      <!-- Non tracked content :: review look-at="#camera"  -->
+      <!-- animation="property: object3D.position.y; to: -5; dir: alternate; dur: 7500; easing: easeInOutSine; elasticity: 100; loop: true; repeat: indefinite" -->
+      <a-entity camera>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
