@@ -2,6 +2,9 @@
 <html>
   <script src="../aframe/dist/aframe-v1.1.0.min.js"></script>
   <!-- <script src="./AR-js/aframe/build/aframe-ar.js"></script> -->
+  <!-- <script src='refraction-shader.js' type="text/javascript"></script> -->
+  <script src="./shader-grid-glitch.js"></script>
+
   <body style="margin : 0px; overflow: hidden;">
     <!-- Component registration -->
     <script>
@@ -12,8 +15,11 @@
           }
         });
     </script>
+    
+
     <a-scene >
       <a-sky color="#DDDDDD"></a-sky>
+
         <a-assets>
             <!-- models -->
             <a-asset-item id="m-01" src="../_assets/models/04-1.glb"></a-asset-item>
@@ -115,17 +121,27 @@
       </a-entity>
 
       <a-entity id="models">
-        <a-entity gltf-model="#m-06" shadow="cast: true" position="0 0 -5" scale="20 20 20"
+       
+        <a-entity material="shader:grid-glitch; color: purple;" gltf-model="#m-06" shadow="cast: true" position="0 0 -3" scale="50 50 50"
+            
             animation="property: object3D.rotation.y; to: 360; dur: 5000; loop: true"></a-entity>
         
       </a-entity>
+      <a-sphere material="shader:grid-glitch; color: blue;" radius=".5" position="0 0.5 -4"></a-sphere>
 
 
       <!-- Non tracked content :: review look-at="#camera"  -->
-      <!-- animation="property: object3D.position.y; to: -5; dir: alternate; dur: 7500; easing: easeInOutSine; elasticity: 100; loop: true; repeat: indefinite" -->
-      <a-entity camera>
+      <!-- <a-entity camera>
         <a-entity cursor raycaster="far: 20; interval: 1000; objects: .clickable"></a-entity>
-      </a-entity>
+      </a-entity> -->
+
+      <a-camera
+        position="0 1 4"
+        cursor-visible="true"
+        cursor-scale="2"
+        cursor-color="#0095DD"
+        cursor-opacity="0.5">
+      </a-camera>
     </a-scene>
   </body>
 </html>
