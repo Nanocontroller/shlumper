@@ -3,7 +3,9 @@
   <script src="../aframe/dist/aframe-v1.1.0.min.js"></script>
   <!-- <script src="./AR-js/aframe/build/aframe-ar.js"></script> -->
   <!-- <script src='refraction-shader.js' type="text/javascript"></script> -->
-  <script src="./shader-grid-glitch.js"></script>
+  <!-- <script src="./shader-grid-glitch.js"></script> -->
+  
+  <script src="dist/aframe-effects.min.js"></script>
 
   <body style="margin : 0px; overflow: hidden;">
     <!-- Component registration -->
@@ -15,10 +17,41 @@
           }
         });
     </script>
-    
 
-    <a-scene >
-      <a-sky color="#DDDDDD"></a-sky>
+
+
+
+<script type="script-effect" id="customFilter" data-defaults="tDiffuse 0.3 0.3 1." data-diffuse>
+  void $main(inout vec4 c, vec4 o, vec2 uv, float d){
+      float t = time * mix(1., 1000., abs(sin(time * 10. + uv.x)));
+      uv = vec2(uv.x + resolution.z * sin(t * c.r + c.b), uv.y - resolution.w * cos(t * c.b + c.r));
+      c.rgb += smoothstep(0.3, 0.9, texture2D($0,uv).rgb  ) * mix( $1, $2, abs(sin(time * $3))) ;
+  }
+</script>
+
+<script type="script-effect" id="blendOutline" data-diffuse>
+  void $main(inout vec4 c, vec4 o, vec2 uv, float d){
+      c.rgb = mix(c.rgb, o.rgb, smoothstep(0.1,0.3,o.a));
+  }
+</script>
+
+<script type="script-effect" id="add" data-defaults="bloom_texture bloom_intensity" data-diffuse>
+  void $main(inout vec4 c, vec4 o, vec2 uv, float d){
+      c.rgb += pow(texture2D($0, uv).rgb,vec3(2.)) * $1;
+  }
+</script>
+
+<a-scene 
+  antialias="false"
+  effects=" colors, outline.sobel?, #blendOutline, bloom, film,  godrays, glitch,  fxaa"
+  film="sIntensity: 0.03; nIntensity: 0.2" 
+  outline="enabled: false; width: 1.33 1.33; range: 0 10; strength: 3; smooth: true;" 
+  colors="mode:hqprtom; mul: 0.66 0.5 0.66; pow: 1 1.33 1.66; quant: 0.3 0.3 0.1; orig: 0.33 0.66 0.66"
+  bloom="filter: bloom!, bloom.filter, #customFilter(bloom_texture 0.3 0.6 0.5); strength: 0.5; radius:1.2"
+  fxaa="true"
+  godrays="src: #sun; threshold: 0. 0.33; intensity: 2"
+  glitch="false">
+
 
         <a-assets>
             <!-- models -->
@@ -122,12 +155,12 @@
 
       <a-entity id="models">
        
-        <a-entity material="shader:grid-glitch; color: purple;" gltf-model="#m-06" shadow="cast: true" position="0 0 -3" scale="50 50 50"
+        <a-entity gltf-model="#m-06" shadow="cast: true" position="0 0 -3" scale="50 50 50"
             
-            animation="property: object3D.rotation.y; to: 360; dur: 5000; loop: true"></a-entity>
+            animation="property: object3D.rotation.y; to: 360; dur: 5000; loop:true"></a-entity>
         
       </a-entity>
-      <a-sphere material="shader:grid-glitch; color: blue;" radius=".5" position="0 0.5 -4"></a-sphere>
+      <!-- <a-sphere material="shader:grid-glitch; color: blue;" radius=".5" position="0 0.5 -4"></a-sphere> -->
 
 
       <!-- Non tracked content :: review look-at="#camera"  -->
@@ -140,8 +173,33 @@
         cursor-visible="true"
         cursor-scale="2"
         cursor-color="#0095DD"
-        cursor-opacity="0.5">
+        cursor-opacity="0.5"
+        look-controls="" 
+        wasd-controls="">
       </a-camera>
+
+
     </a-scene>
+
+
+
+
+    <div style="position:fixed; top:0; left:0; width: 100%; z-index:1000; text-align: center">
+      <label style="font-weight: bold; color: white; text-shadow: 1px 1px black; cursor: pointer;">
+          <input type="checkbox" checked style="vertical-align: bottom;"
+              onchange="document.querySelector('a-scene').setAttribute('effects', this.checked ? 'colors, outline.sobel?, #blendOutline, bloom, film,  godrays, glitch,  fxaa' : ''  )" />
+          Toggle effects
+      </label>
+      <label style="font-weight: bold; color: white; text-shadow: 1px 1px black; cursor: pointer;">
+          <input type="checkbox" style="vertical-align: bottom;"
+              onchange="document.querySelector('a-scene').setAttribute('glitch', this.checked  )" />
+          Glitch
+      </label>
+      <label style="font-weight: bold; color: white; text-shadow: 1px 1px black; cursor: pointer;">
+          <input type="checkbox" checked style="vertical-align: bottom;"
+              onchange="document.querySelector('a-scene').setAttribute('fxaa', this.checked  )" />
+          FXAA
+      </label>
+  </div>
   </body>
 </html>
