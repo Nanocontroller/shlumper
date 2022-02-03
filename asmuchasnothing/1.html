@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!-- developed by @nanocontroller 2022 -->
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+  </head>
+  <script src="../aframe/dist/aframe-v1.1.0.min.js"></script>
+  <script src="../AR-js/aframe/build/aframe-ar.js"></script>
+  <script src="../aframe/dist/aframe-extras.loaders.min.js"></script>
+  <script src="./index.js"></script>
+
+  <body style="margin: 0px; overflow: hidden">
+    <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
+    <a-scene
+      light="defaultLightsEnabled: false"
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+    >
+      <a-assets>
+        <a-assets>
+            <!-- models -->
+            <a-asset-item id="animated-asset1" src="../_assets/models/spirit-09.glb"></a-asset-item>
+            <a-asset-item id="animated-asset2" src="../_assets/models/04-2.glb"></a-asset-item>
+      </a-assets>
+
+      <!-- Lights -->
+      <a-light type="ambient" intensity="0.5" castshadow="false"></a-light>
+      <a-shadow-light
+        type="spot"
+        far="18"
+        target="0 0 -5"
+        mapsize="4096 4096"
+        position="0 16 -5"
+      >
+      </a-shadow-light>
+      <a-shadow-plane
+        id="shadow-plane-primitive"
+        dimensions="10 10"
+        position="0 0 0"
+      >
+      </a-shadow-plane>
+
+      <a-marker type="barcode" value="2">
+        <a-entity id="shadow-plane-entity" shadow-plane="opacity: 0.4">
+        </a-entity>
+
+        <a-box position="0 0.5 0" color="yellow" shadow="cast: true"></a-box>
+        <a-sphere
+          id="ball"
+          radius=".5"
+          position="0 2 -5"
+          material="color: red"
+          animation__pos="property: position; from: 0 0 0; to: 0 3 0; loop: true; dur: 1500; dir: alternate; easing: easeInOutSine"
+          shadow="receive: false"
+        >
+        </a-sphere>
+      </a-marker>
+
+      <a-marker id="animated-marker" type="barcode" value="1">
+        <a-entity
+          gltf-model="#animated-asset1"
+          scale="200 200 200"
+          shadow="receive: false"
+        >
+        </a-entity>
+      </a-marker>
+
+      <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+      window.addEventListener("load", function () {
+        // you can access the THREE.Light object from the shadow-light element
+        var lightEl = document.querySelector("a-shadow-light");
+        console.log(lightEl.shadowLight);
+      });
+    </script>
+  </body>
+</html>
