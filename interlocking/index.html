@@ -26,6 +26,7 @@
     >  
       <a-assets>
             <!-- models -->
+            <a-asset-item id="master" src="../_assets/models/interlocking-0.glb"></a-asset-item>
             <a-asset-item id="m1" src="../_assets/models/interlocking-1.glb"></a-asset-item>
             <a-asset-item id="m2" src="../_assets/models/interlocking-2.glb"></a-asset-item>
             <a-asset-item id="m3" src="../_assets/models/interlocking-3.glb"></a-asset-item>
@@ -53,16 +54,58 @@
       </a-shadow-plane>
 
       <!-- marker -->
-      <a-marker type="barcode" value="1">
-        <a-entity id="shadow-plane-entity" shadow-plane="opacity: 0.4">
+      <!-- <a-marker type="barcode" value="1"> -->
+        <a-entity id="shadow-plane-entity" shadow-plane="opacity: 0.3">
         </a-entity>
         <a-entity 
           gltf-model="#m1" 
           shadow="receive: false" 
-          scale="2 2 2"
-          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true"
+          scale="10 10 10"
+          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
         ></a-entity>
-      </a-marker>
+        <a-entity 
+          gltf-model="#m2" 
+          shadow="receive: false" 
+          scale="10 10 10"
+          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
+        ></a-entity>
+        <a-entity 
+          gltf-model="#m3" 
+          shadow="receive: false" 
+          scale="10 10 10"
+          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
+        ></a-entity>
+        <a-entity 
+          gltf-model="#m4" 
+          shadow="receive: false" 
+          scale="10 10 10"
+          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
+        ></a-entity>
+        <a-entity 
+          gltf-model="#m5" 
+          shadow="receive: false" 
+          scale="10 10 10"
+          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
+        ></a-entity>
+        <a-entity 
+          gltf-model="#m6" 
+          shadow="receive: false" 
+          scale="10 10 10"
+          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
+        ></a-entity>
+        <a-entity 
+          gltf-model="#m7" 
+          shadow="receive: false" 
+          scale="10 10 10"
+          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
+        ></a-entity>
+        <a-entity 
+          gltf-model="#m8" 
+          shadow="receive: false" 
+          scale="10 10 10"
+          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
+        ></a-entity>
+      <!-- </a-marker> -->
 
       <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
       <a-entity camera></a-entity>
