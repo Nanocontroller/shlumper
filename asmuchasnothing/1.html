@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<!-- developed by @nanocontroller 2022 -->
+<!-- As much as nothing
+  developed by @nanocontroller 2022 -->
 
 <html>
   <head>
@@ -10,6 +11,7 @@
       content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
   </head>
+  <title>As much as nothing</title>
   <script src="../aframe/dist/aframe-v1.1.0.min.js"></script>
   <script src="../aframe/dist/aframe-extras.loaders.min.js"></script>
   <script src="../AR-js/aframe/build/aframe-ar.js"></script>
@@ -19,14 +21,12 @@
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
     <a-scene
       light="defaultLightsEnabled: false"
-      embedded
-      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+      embedded arjs="debugUIEnabled: false; sourceType: webcam; trackingMethod: best; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
       vr-mode-ui="enabled: false;"
-    >
+    >  
       <a-assets>
             <!-- models -->
             <a-asset-item id="animated-asset1" src="../_assets/models/spirit-08.glb"></a-asset-item>
-            <a-asset-item id="animated-asset2" src="../_assets/models/04-2.glb"></a-asset-item>
       </a-assets>
 
       <!-- Lights -->
@@ -45,29 +45,16 @@
         position="0 0 0">
       </a-shadow-plane>
 
-      <a-marker type="barcode" value="2">
+      <!-- marker -->
+      <a-marker type="barcode" value="1">
         <a-entity id="shadow-plane-entity" shadow-plane="opacity: 0.4">
         </a-entity>
-
-        <a-box position="0 0.5 0" color="yellow" shadow="cast: true"></a-box>
-        <a-sphere
-          id="ball"
-          radius=".5"
-          position="0 2 -5"
-          material="color: red"
-          animation__pos="property: position; from: 0 0 0; to: 0 3 0; loop: true; dur: 1500; dir: alternate; easing: easeInOutSine"
-          shadow="receive: false"
-        >
-        </a-sphere>
-      </a-marker>
-
-      <a-marker id="animated-marker" type="barcode" value="1">
-        <a-entity
-          gltf-model="#animated-asset1"
+        <a-entity 
+          gltf-model="#animated-asset1" 
+          shadow="receive: false" 
           scale="2 2 2"
-          shadow="receive: false"
-        >
-        </a-entity>
+          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true"
+        ></a-entity>
       </a-marker>
 
       <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
@@ -76,7 +63,7 @@
 
     <script>
       window.addEventListener("load", function () {
-        // you can access the THREE.Light object from the shadow-light element
+        // access the THREE.Light object from the shadow-light element
         var lightEl = document.querySelector("a-shadow-light");
         console.log(lightEl.shadowLight);
       });
