@@ -35,8 +35,31 @@
             <a-asset-item id="m6" src="../_assets/models/interlocking-6.glb"></a-asset-item>
             <a-asset-item id="m7" src="../_assets/models/interlocking-7.glb"></a-asset-item>
             <a-asset-item id="m8" src="../_assets/models/interlocking-8.glb"></a-asset-item>
+            <!-- animations -->
+            <a-mixin id="up_anim"
+                animation="property: object3D.position.x; to: .25; dur: 30000; easing: linear; loop: true;"
+                animation__2="property: object3D.position.y;  to: .25; dur: 5000; easeInOut: easeInOutSine; dir: alternate; loop: true;"
+            ></a-mixin>
+            <a-mixin id="down_anim"
+                animation="property: object3D.position.x; to: -.25; dur: 30000; easing: linear; loop: true;"
+                animation__2="property: object3D.position.y;  to: -.25; dur: 5000; easeInOut: easeInOutSine; dir: alternate; loop: true;"
+            ></a-mixin>
+            <a-mixin id="right_anim"
+                animation="property: object3D.position.x; to: .25; dur: 30000; easing: linear; loop: true;"
+                animation__2="property: object3D.position.y;  to: .125; dur: 5000; easeInOut: easeInOutSine; dir: alternate; loop: true;"
+            ></a-mixin>
+            <a-mixin id="left_anim"
+                animation="property: object3D.position.x; to: -.25; dur: 30000; easing: linear; loop: true;"
+                animation__2="property: object3D.position.y;  to: .125; dur: 5000; easeInOut: easeInOutSine; dir: alternate; loop: true;"
+            ></a-mixin>
+            <a-mixin id="geo-animation"
+              shadow="receive: false" 
+              position="0 0 -2.5"
+              scale="10 10 10"
+              animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
+            ></a-mixin>
       </a-assets>
-
+      
       <!-- Lights -->
       <a-light type="ambient" intensity="0.5" castshadow="false"></a-light>
       <a-shadow-light
@@ -57,62 +80,38 @@
       <!-- <a-marker type="barcode" value="1"> -->
         <a-entity id="shadow-plane-entity" shadow-plane="opacity: 0.3">
         </a-entity>
+
         <a-entity 
-          gltf-model="#m1" 
-          shadow="receive: false" 
-          position="0 0 -2.5"
-          scale="10 10 10"
-          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
-         
+          mixin="down_anim geo-animation "
+          gltf-model="#m1"
         ></a-entity>
         <a-entity 
-          gltf-model="#m2" 
-          shadow="receive: false" 
-          position="0 0 -2.5"
-          scale="10 10 10"
-          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
+          mixin="left_anim geo-animation"
+          gltf-model="#m2"
         ></a-entity>
         <a-entity 
+          mixin="left_anim geo-animation"
           gltf-model="#m3" 
-          shadow="receive: false" 
-          position="0 0 -2.5"
-          scale="10 10 10"
-          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
         ></a-entity>
         <a-entity 
+        mixin="up_anim geo-animation"
           gltf-model="#m4" 
-          shadow="receive: false" 
-          position="0 0 -2.5"
-          scale="10 10 10"
-          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
         ></a-entity>
         <a-entity 
-          gltf-model="#m5" 
-          shadow="receive: false" 
-          position="0 0 -2.5"
-          scale="10 10 10"
-          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
+          mixin="right_anim geo-animation"
+          gltf-model="#m5"
         ></a-entity>
         <a-entity 
-          gltf-model="#m6" 
-          shadow="receive: false" 
-          position="0 0 -2.5"
-          scale="10 10 10"
-          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
+        mixin="geo-animation"
+          gltf-model="#m6"
         ></a-entity>
-        <a-entity 
+        <a-entity  
+          mixin="geo-animation"
           gltf-model="#m7" 
-          shadow="receive: false" 
-          position="0 0 -2.5"
-          scale="10 10 10"
-          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
         ></a-entity>
         <a-entity 
-          gltf-model="#m8" 
-          shadow="receive: false" 
-          position="0 0 -2.5"
-          scale="10 10 10"
-          animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
+          mixin="up_anim geo-animation"
+         gltf-model="#m8" 
         ></a-entity>
       <!-- </a-marker> -->
 
