@@ -27,7 +27,7 @@
       <a-assets>
             <!-- models -->
             <a-asset-item id="hole" src="../_assets/models/hole.glb"></a-asset-item>
-            <a-asset-item id="master" src="../_assets/models/interlocking-0.glb"></a-asset-item>
+            <a-asset-item id="todos" src="../_assets/models/interlocking-0.glb"></a-asset-item>
             <a-asset-item id="m1" src="../_assets/models/interlocking-1.glb"></a-asset-item>
             <a-asset-item id="m2" src="../_assets/models/interlocking-2.glb"></a-asset-item>
             <a-asset-item id="m3" src="../_assets/models/interlocking-3.glb"></a-asset-item>
@@ -59,7 +59,7 @@
             ></a-mixin>
             <a-mixin id="setup"
               shadow="receive: false" 
-              position="0 0 -2.5"
+              position="0 0 0"
               scale="10 10 10"
             ></a-mixin>
             <a-mixin id="spin_anim"
@@ -89,9 +89,14 @@
         <a-entity 
           mixin="spin_anim"  
           gltf-model="#hole" scale=".5 .5 .5"></a-entity>
-          
+
         <a-entity id="shadow-plane-entity" shadow-plane="opacity: 0.3">
         </a-entity>
+
+        <a-entity 
+          mixin="setup"
+          gltf-model="#todos"
+        ></a-entity>
         
         <a-entity 
           mixin="dl_anim setup "
@@ -125,8 +130,10 @@
           mixin="up_anim setup"
           gltf-model="#m8" 
         ></a-entity>
-      
+
+
       </a-marker>
+
 
       <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
       <a-entity camera></a-entity>
