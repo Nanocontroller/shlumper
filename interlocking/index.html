@@ -26,6 +26,7 @@
     >  
       <a-assets>
             <!-- models -->
+            <a-asset-item id="hole" src="../_assets/models/hole.glb"></a-asset-item>
             <a-asset-item id="master" src="../_assets/models/interlocking-0.glb"></a-asset-item>
             <a-asset-item id="m1" src="../_assets/models/interlocking-1.glb"></a-asset-item>
             <a-asset-item id="m2" src="../_assets/models/interlocking-2.glb"></a-asset-item>
@@ -37,37 +38,44 @@
             <a-asset-item id="m8" src="../_assets/models/interlocking-8.glb"></a-asset-item>
             <!-- animations -->
             <a-mixin id="up_anim"
-                animation="property: object3D.position.x; to: .25; dur: 30000; easing: linear; loop: true;"
-                animation__2="property: object3D.position.y;  to: .25; dur: 5000; easeInOut: easeInOutSine; dir: alternate; loop: true;"
+                animation="property: object3D.position.y; to: .25; dur: 5000;  easing: linear; dir: alternate; loop: true;"
             ></a-mixin>
             <a-mixin id="down_anim"
-                animation="property: object3D.position.x; to: -.25; dur: 30000; easing: linear; loop: true;"
-                animation__2="property: object3D.position.y;  to: -.25; dur: 5000; easeInOut: easeInOutSine; dir: alternate; loop: true;"
+                animation="property: object3D.position.y; to: -.25; dur: 5000;  easing: linear; dir: alternate; loop: true;"
             ></a-mixin>
             <a-mixin id="right_anim"
-                animation="property: object3D.position.x; to: .25; dur: 30000; easing: linear; loop: true;"
-                animation__2="property: object3D.position.y;  to: .125; dur: 5000; easeInOut: easeInOutSine; dir: alternate; loop: true;"
+                animation="property: object3D.position.x; to: .35; dur: 5000;  easing: linear; dir: alternate; loop: true;"
             ></a-mixin>
             <a-mixin id="left_anim"
-                animation="property: object3D.position.x; to: -.25; dur: 30000; easing: linear; loop: true;"
-                animation__2="property: object3D.position.y;  to: .125; dur: 5000; easeInOut: easeInOutSine; dir: alternate; loop: true;"
+                animation="property: object3D.position.x; to: -.5; dur: 5000;  easing: linear; dir: alternate; loop: true;"
             ></a-mixin>
-            <a-mixin id="geo-animation"
+            <a-mixin id="dl_anim"
+              animation="property: object3D.position.y; to: -.25; dur: 5000;  easing: linear; dir: alternate; loop: true;"
+              animation__2="property: object3D.position.x;  to: -.25; dur: 5000;  easing: linear; dir: alternate; loop: true;"
+            ></a-mixin>
+            <a-mixin id="ld_anim"
+              animation="property: object3D.position.y; to: -.2; dur: 5000;  easing: linear; dir: alternate; loop: true;"
+              animation__2="property: object3D.position.x;  to: -.125; dur: 5000;  easing: linear; dir: alternate; loop: true;"
+            ></a-mixin>
+            <a-mixin id="setup"
               shadow="receive: false" 
               position="0 0 -2.5"
               scale="10 10 10"
-              animation="property: object3D.rotation.y; to: 360; dur: 10000; loop: true;"
             ></a-mixin>
+            <a-mixin id="spin_anim"
+              animation="property: object3D.rotation.y; to: 360; dur: 50000; loop: true;"
+            ></a-mixin>
+            
       </a-assets>
       
       <!-- Lights -->
       <a-light type="ambient" intensity="0.5" castshadow="false"></a-light>
       <a-shadow-light
         type="spot"
-        far="18"
-        target="0 0 -5"
+        far="10"
+        target="0 0 -1"
         mapsize="4096 4096"
-        position="0 16 -5"
+        position="0 10 -5"
       >
       </a-shadow-light>
       <a-shadow-plane
@@ -77,43 +85,48 @@
       </a-shadow-plane>
 
       <!-- marker -->
-      <!-- <a-marker type="barcode" value="1"> -->
+      <a-marker type="barcode" value="1">
+        <a-entity 
+          mixin="spin_anim"  
+          gltf-model="#hole" scale=".5 .5 .5"></a-entity>
+          
         <a-entity id="shadow-plane-entity" shadow-plane="opacity: 0.3">
         </a-entity>
-
+        
         <a-entity 
-          mixin="down_anim geo-animation "
+          mixin="dl_anim setup "
           gltf-model="#m1"
         ></a-entity>
         <a-entity 
-          mixin="left_anim geo-animation"
+          mixin="left_anim setup"
           gltf-model="#m2"
         ></a-entity>
         <a-entity 
-          mixin="left_anim geo-animation"
+          mixin="ld_anim setup"
           gltf-model="#m3" 
         ></a-entity>
         <a-entity 
-        mixin="up_anim geo-animation"
+          mixin="setup"
           gltf-model="#m4" 
         ></a-entity>
         <a-entity 
-          mixin="right_anim geo-animation"
+          mixin="right_anim setup"
           gltf-model="#m5"
         ></a-entity>
         <a-entity 
-        mixin="geo-animation"
+          mixin="right_anim setup"
           gltf-model="#m6"
         ></a-entity>
         <a-entity  
-          mixin="geo-animation"
+          mixin="setup"
           gltf-model="#m7" 
         ></a-entity>
         <a-entity 
-          mixin="up_anim geo-animation"
-         gltf-model="#m8" 
+          mixin="up_anim setup"
+          gltf-model="#m8" 
         ></a-entity>
-      <!-- </a-marker> -->
+      
+      </a-marker>
 
       <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
       <a-entity camera></a-entity>
