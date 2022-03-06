@@ -16,6 +16,7 @@
   <script src="../aframe/dist/aframe-extras.loaders.min.js"></script>
   <script src="../AR-js/aframe/build/aframe-ar.js"></script>
   <script src="index.js"></script>
+  <script src="texture.js"></script>
 
   <body style="margin: 0px; overflow: hidden">
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
@@ -28,7 +29,7 @@
             <!-- models -->
             <a-asset-item id="hole" src="../_assets/models/hole.glb"></a-asset-item>
             <a-asset-item id="todos" src="../_assets/models/interlocking-0.glb"></a-asset-item>
-            <a-asset-item id="m1" src="../_assets/models/interlocking-1.glb"></a-asset-item>
+            <a-asset-item id="m1" src="../_assets/models/interlocking-1a.glb"></a-asset-item>
             <a-asset-item id="m2" src="../_assets/models/interlocking-2.glb"></a-asset-item>
             <a-asset-item id="m3" src="../_assets/models/interlocking-3.glb"></a-asset-item>
             <a-asset-item id="m4" src="../_assets/models/interlocking-4.glb"></a-asset-item>
@@ -65,7 +66,6 @@
             <a-mixin id="spin_anim"
               animation="property: object3D.rotation.y; to: 360; dur: 50000; loop: true;"
             ></a-mixin>
-            
       </a-assets>
       
       <!-- Lights -->
@@ -75,12 +75,11 @@
         far="10"
         target="0 0 -1"
         mapsize="4096 4096"
-        position="0 10 -5"
-      >
+        position="0 10 5">
       </a-shadow-light>
       <a-shadow-plane
         id="shadow-plane-primitive"
-        dimensions="10 10"
+        dimensions="20 20"
         position="0 0 0">
       </a-shadow-plane>
 
@@ -93,40 +92,40 @@
         <a-entity id="shadow-plane-entity" shadow-plane="opacity: 0.3">
         </a-entity>
 
-        <a-entity 
+        <!-- <a-entity 
           mixin="setup"
           gltf-model="#todos"
         ></a-entity>
-        
+         -->
         <a-entity 
           mixin="dl_anim setup "
           gltf-model="#m1"
         ></a-entity>
-        <a-entity 
+        <a-entity texture
           mixin="left_anim setup"
           gltf-model="#m2"
         ></a-entity>
-        <a-entity 
+        <a-entity texture
           mixin="ld_anim setup"
           gltf-model="#m3" 
         ></a-entity>
-        <a-entity 
+        <a-entity texture
           mixin="setup"
           gltf-model="#m4" 
         ></a-entity>
-        <a-entity 
+        <a-entity texture
           mixin="right_anim setup"
           gltf-model="#m5"
         ></a-entity>
-        <a-entity 
+        <a-entity texture
           mixin="right_anim setup"
           gltf-model="#m6"
         ></a-entity>
-        <a-entity  
+        <a-entity  texture
           mixin="setup"
           gltf-model="#m7" 
         ></a-entity>
-        <a-entity 
+        <a-entity texture
           mixin="up_anim setup"
           gltf-model="#m8" 
         ></a-entity>
