@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Shlumper VR</title>
+    <meta name="description" content="shlumper VR"></meta>
+    <script src="../aframe/dist/aframe-v1.1.0.min.js"></script>
+   
+    <!-- <script src="https://unpkg.com/aframe-raytrace-component/dist/aframe-raytrace-component.min.js"></script>
+    <script src="../../dist/aframe-raytrace-component.min.js"></script> -->
+<!--     
+    <script src="./js/index.js"></script> -->
+  </head>
+  <body>
+    <script id="smoke-fs" type="x-shader/x-fragment">
+      
+      precision mediump float;
+      
+      uniform float time;
+      uniform vec3 localCameraPos;
+      varying vec3 localSurfacePos;
+      
+      const float pi2 = 3.14152*2.0;
+      
+      vec4 field(vec3 p){
+        
+        vec3 morphedP = vec3(
+            p.x*20.0 + time/200.0
+            + sin(p.z*5.0)*(1.0+sin(time/1100.0)*0.5)*10.0
+            + sin(p.y*4.0)*(1.0+sin(time/1300.0)*0.5)*10.0
+          ,
+            p.y*20.0 + time/300.0
+            + sin(p.z*5.0)*(1.0+sin(time/1000.0)*0.5)*10.0
+            + sin(p.x*4.0)*(1.0+sin(time/1200.0)*0.5)*10.0
+          ,
+            p.z*20.0 + time/400.0
+            + sin(p.x*5.0)*(1.0+sin(time/1400.0)*0.5)*10.0
+            + sin(p.y*4.0)*(1.0+sin(time/1500.0)*0.5)*10.0
+        );
+        
+        float alpha = (sin(morphedP.x)*0.5+0.5) * (sin(morphedP.y)*0.5+0.5) * (sin(morphedP.z)*0.5+0.5);
+        vec3 color = vec3(
+          sin(morphedP.x),
+          sin(morphedP.y),
+          sin(morphedP.z)
+        );
+        color = (color*0.5+0.5)*alpha;
+        
+        return vec4(color,alpha);
+      }
+      
+      
+      float fadeCurve(float x){
+        return 1.0-pow(abs(x)/0.5,2.0);
+      }
+      
+      void alphaBlend(inout vec4 baseCol, vec4 newCol){
+        baseCol = baseCol*(1.0-newCol.a) + newCol;
+      }
+      
+      float noise(vec3 p){
+        return sin(
+          p.x*12345678.0 + p.y*45678912.0 + p.z*78912345.0 +
+          sin(p.x+p.y+time/1000.0)*14725836.0 + sin(p.y+p.z+time/1000.0)*25836914.0 + sin(p.z+p.x+time/1000.0)*36914725.0
+        );
+      }
+      
+      void main(){
+        
+        vec3 rayPos = localSurfacePos;
+        vec3 rayDir = normalize(localCameraPos-localSurfacePos);//BACKWARDS because we're painting inside & doing painter's algorithm!
+        vec4 fog = vec4(0.0);
+        for(int i=0; i<200; i++){
+          rayPos += rayDir*0.01;
+          if (max(max(abs(rayPos.x),abs(rayPos.y)),abs(rayPos.z)) > 0.51) break;
+          float squareFade = fadeCurve(rayPos.x)*fadeCurve(rayPos.y)*fadeCurve(rayPos.z);
+          vec4 fogSamp = field(rayPos);//+rayDir*0.005*noise(rayPos));
+          alphaBlend(fog,fogSamp*squareFade);
+        }
+        
+        gl_FragColor = fog;
+        
+      }
+    </script>
+  
+    <a-scene shlumper-vr>
+      
+      <a-assets>
+        <video id="skyVideo" playsinline webkit-playsinline autoplay loop src="./assets/shlumper-bg-3-vr-2c.mp4">
+        <img id="skyImage" src="assets/shlumper-bg-vr.jpg">
+        <img id="homeThumb" src="assets/portal.png">
+        <a-asset-item id="t" src="assets/01-7.glb"></a-asset-item> 
+      </a-assets>
+
+      <a-mixin id="setup"
+        position="0 1 -3"
+        scale="100 100 100"
+    ></a-mixin>
+
+    <a-entity 
+        mixin="setup" 
+        gltf-model="#t"
+      ></a-entity>
+
+      <a-entity 
+        position="3 0 -3" scale="100 100 100"
+        gltf-model="assets/model-0238.glb"  
+      ></a-entity>
+    
+      <a-entity position="0 0 -2">
+        <a-box position="0 1.65 0" scale="0.5 0.5 0.5" raytrace="shader:#blob-fs; backside:true;"></a-box>
+        
+      </a-entity>
+
+      <!-- <a-entity position="2 0 0" rotation="0 -90 0">
+        <a-torus position="0 1.65 0" color="#345" radius="0.5" radius-tubular="0.005" segments-tubular="64" segments-radial="6">
+          <a-circle radius="0.5" segments="16" raytrace="shader:#columns-fs"></a-circle>
+        </a-torus>
+        <a-cylinder position="0 0 0" radius="0.01" height="2.3" color="#345" segments-height="1" segments-radial="6"></a-cylinder>
+      </a-entity>
+       -->
+      <a-entity position="-2 0 0" rotation="0 90 0">
+        <a-box position="0 1.65 0" scale="0.5 0.5 0.5" raytrace="shader:#smoke-fs; transparent:true; backside:true;"></a-box>
+      </a-entity>
+      
+      <!--  portal -->
+      <a-entity link="href:#; title:Back to Home; image: #homeThumb;" position="3.5 1 -1.0" ></a-entity>
+      <a-link href="#.html" position="-3.5 1 -1.0" image="#homeThumb"></a-link>
+        
+      <!-- environment -->
+      <a-videosphere src="#skyVideo"></a-videosphere>
+      <a-light type="ambient" color="#445451"></a-light>
+      <a-light type="point" intensity="2" position="0 4 0"></a-light>
+      
+      
+    </a-scene>  
+  </body>
+</html>
