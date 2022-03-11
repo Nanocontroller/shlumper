@@ -1,0 +1,39 @@
+<!-- Developed by Nanocontroller 2022 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Supporting Ukrane</title>
+    <script src="../aframe/dist/aframe-v1.1.0.min.js"></script>
+
+  </head>
+  <body>
+    <a-scene background="color: #ECECEC">
+        <a-assets>
+            <!-- models -->
+            <a-asset-item id="model" src="./object-ukraine.glb"></a-asset-item>
+        </a-assets>
+
+        <a-mixin id="setup"
+              position="0 1.35 -1"
+              scale="10 10 10"
+        ></a-mixin>
+        <a-mixin id="spin_anim"
+              animation="property: object3D.rotation.y; to: 360; dur: 5000; easing: linear; loop: true;"
+        ></a-mixin>
+
+       <a-entity 
+            mixin="spin_anim setup"
+            gltf-model="#model"
+        ></a-entity>
+        <a-entity 
+            gltf-model="#model" 
+            position="5 1 -1"
+            scale="10 10 10"
+            animation="property: object3D.rotation.y; to: 360; dur: 5000; loop: true;"
+            ></a-entity>
+        <a-sky color="#ECECEC"></a-sky>
+      <!-- <a-gradient-sky material="shader: gradient; topColor: 0 91 187; bottomColor: 255 213 0;"></a-gradient-sky> -->
+    </a-scene>
+
+  </body>
+</html>

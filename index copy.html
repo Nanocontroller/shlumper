@@ -1,4 +1,3 @@
-<!-- Developed by Nanocontroller 2022 -->
 <!DOCTYPE html>
 <html>
   <script src="./aframe/dist/aframe-v1.1.0.min.js"></script>
@@ -9,7 +8,7 @@
         AFRAME.registerComponent('alpha-test', {
           dependencies: ['material'],
           init: function () {
-            this.el.getObject3D('mesh').material.alphaTest = 0.15;
+            this.el.getObject3D('mesh').material.alphaTest = 0.5;
           }
         });
     </script>
@@ -17,12 +16,12 @@
              vr-mode-ui="enabled: false;">
         <a-assets>
             <!-- models -->
-            <a-asset-item id="m-01" src="./_assets/models/img-0248.glb"></a-asset-item>
-            <a-asset-item id="m-02" src="./_assets/models/img-0247.glb"></a-asset-item>
-            <a-asset-item id="m-03" src="./_assets/models/img-0245.glb"></a-asset-item>
-            <a-asset-item id="m-04" src="./_assets/models/img-0242.glb"></a-asset-item>
-            <a-asset-item id="m-05" src="./_assets/models/img-0241.glb"></a-asset-item>
-            <a-asset-item id="m-06" src="./_assets/models/img-0240.glb"></a-asset-item>
+            <a-asset-item id="m-01" src="./_assets/models/04-1.glb"></a-asset-item>
+            <a-asset-item id="m-02" src="./_assets/models/04-2.glb"></a-asset-item>
+            <a-asset-item id="m-03" src="./_assets/models/04-3.glb"></a-asset-item>
+            <a-asset-item id="m-04" src="./_assets/models/04-4.glb"></a-asset-item>
+            <a-asset-item id="m-05" src="./_assets/models/04-5.glb"></a-asset-item>
+            <a-asset-item id="m-06" src="./_assets/models/04-6.glb"></a-asset-item>
 
             <!-- images -->
             <img id="i-01" src="./_assets/images/01.png">
@@ -42,8 +41,8 @@
             <a-mixin id="img-material" material="shader: flat; transparent: true; opacity: 0.35;"></a-mixin>
 
             <!-- Image animation -->
-            <a-mixin id="img-animation" scale="3 3 3" animation="property: object3D.rotation.z; from: -60 to: 60; dir: alternate; dur: 5000; easing: linear; loop: true;">
-            </a-mixin>
+            <a-mixin id="img-animation" scale="3 3 3" animation="property: object3D.rotation.z; from: -60 to: 60; dir: alternate; dur: 5000; easing: linear; loop: true;"></a-mixin>
+
             <a-mixin id="img01" rotation="0 0 0" geometry="primitive: plane; width: 1; height: 1" material="src: #i-01;">
             </a-mixin>
             <a-mixin id="img02" rotation="0 0 0" geometry="primitive: plane; width: 1; height: 1" material="src: #i-02;">
@@ -66,43 +65,43 @@
             </a-mixin>
             
             <a-mixin id="ground">
-                <a-circle color="#566573" radius="2" rotation="-90 0 0" shadow="receive: true"></a-circle>
+                <a-circle color="#566573" radius="1.6" rotation="-90 0 0" shadow="receive: true"></a-circle>
             </a-mixin>
         </a-assets>
 
       <!-- ar markers  -->
       <a-marker type="barcode" value="1" size="0.05">
-        <a-entity gltf-model="#m-01" shadow="cast: true" position="0 1.25 0" scale="200 200 200"
+        <a-entity gltf-model="#m-01" shadow="cast: true" position="0 0 0" scale="200 200 200"
             animation="property: object3D.rotation.y; to: 360; dur: 5000; loop: true"
-            animation__2="property: object3D.position.y; to: 1.5; dir: alternate; dur: 5000; easing: easeInOutElastic; loop: true"
+            animation__2="property: object3D.position.x; to: .25; dir: alternate; dur: 5000; easing: easeInOutElastic; loop: true"
             ></a-entity>
       </a-marker>
       <a-marker type="barcode" value="2" size="0.15">
-        <a-entity gltf-model="#m-02" shadow="cast: true" position="0 1.25 0" scale="200 200 200"
+        <a-entity gltf-model="#m-02" shadow="cast: true" position="0 0 0" scale="200 200 200"
             animation="property: object3D.rotation.y; to: 360; dur: 5000; loop: true"></a-entity>
         <a-circle color="#566573" radius="1.5" rotation="-90 0 0" shadow="receive: true"></a-circle>
         <!-- <a-entity mixin="ground"></a-entity> -->
       </a-marker>
       <a-marker type="barcode" value="4" size="0.15">
-        <a-entity gltf-model="#m-03" shadow="cast: true" position="0 1.25 0" scale="200 200 200"
+        <a-entity gltf-model="#m-03" shadow="cast: true" position="0 0 0" scale="200 200 200"
             animation="property: object3D.rotation.y; to: 360; dur: 5000; loop: true"></a-entity>
         <a-circle color="#566573" radius="1.5" rotation="-90 0 0" shadow="receive: true"></a-circle>
         <!-- <a-entity mixin="ground"></a-entity> -->
       </a-marker>
       <a-marker type="barcode" value="7" size="0.15">
-        <a-entity gltf-model="#m-04" shadow="cast: true" position="0 1.25 0" scale="200 200 200"
+        <a-entity gltf-model="#m-04" shadow="cast: true" position="0 0 0" scale="200 200 200"
             animation="property: object3D.rotation.y; to: 360; dur: 5000; loop: true"></a-entity>
         <a-circle color="#566573" radius="1.5" rotation="-90 0 0" shadow="receive: true"></a-circle>
         <!-- <a-entity mixin="ground"></a-entity> -->
       </a-marker>
       <a-marker type="barcode" value="8" size="0.15">
-        <a-entity gltf-model="#m-05" shadow="cast: true" position="0 1.25 0" scale="200 200 200"
+        <a-entity gltf-model="#m-05" shadow="cast: true" position="0 0 0" scale="200 200 200"
             animation="property: object3D.rotation.y; to: 360; dur: 5000; loop: true"></a-entity>
         <a-circle color="#566573" radius="1.5" rotation="-90 0 0" shadow="receive: true"></a-circle>
         <!-- <a-entity mixin="ground"></a-entity> -->
       </a-marker>
       <a-marker type="barcode" value="9" size="0.15">
-        <a-entity gltf-model="#m-06" shadow="cast: true" position="0 1.25 0" scale="200 200 200"
+        <a-entity gltf-model="#m-06" shadow="cast: true" position="0 0 0" scale="200 200 200"
             animation="property: object3D.rotation.y; to: 360; dur: 5000; loop: true"></a-entity>
         <a-circle color="#566573" radius="1.5" rotation="-90 0 0" shadow="receive: true"></a-circle>
         <!-- <a-entity mixin="ground"></a-entity> -->
